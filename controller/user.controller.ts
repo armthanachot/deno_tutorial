@@ -1,6 +1,7 @@
 import { Status } from "https://deno.land/x/oak/mod.ts";
 import * as userModel from "../models/user.model.ts";
 import { findOne } from "../services/findOne.ts";
+import {createUser} from "../schema_validator/validator/user.validation.ts"
 const findAll = async (
   { response, request, params }: { response: any; request: any; params: any },
 ) => {
@@ -25,7 +26,16 @@ const create = async (
   { response, request, params }: { response: any; request: any; params: any },
 ) => {
   try {
-    const user = await request.body().value
+    const user:object = await request.body().value
+    const validated = await createUser(user)
+    if(!validated.status){
+      response.status = Status.BadRequest;
+      response.body = {
+        message: validated.message,
+      };
+      return;
+  
+    }    
     const created = await userModel.create(user)
     console.log(created);
     
