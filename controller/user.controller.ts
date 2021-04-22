@@ -1,7 +1,6 @@
 import { Status } from "https://deno.land/x/oak/mod.ts";
 import * as userModel from "../models/user.model.ts";
 import { findOne } from "../services/findOne.ts";
-
 const findAll = async (
   { response, request, params }: { response: any; request: any; params: any },
 ) => {
