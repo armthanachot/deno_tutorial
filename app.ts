@@ -5,7 +5,7 @@ import userRoute from "./routes/user.route.ts"
 import coreRoute from "./routes/core.route.ts"
 const env = Deno.env.toObject()
 const PORT = env.PORT || 3000
-const HOST = env.HOST || '127.0.0.1'
+const HOST = env.HOST || '0.0.0.0'
 
 const app = new Application();
 
