@@ -1,5 +1,7 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
 import { bgYellow, red, bold,green } from "https://deno.land/std/fmt/colors.ts"
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
+
 import productRoute from "./routes/product.route.ts"
 import userRoute from "./routes/user.route.ts"
 import coreRoute from "./routes/core.route.ts"
@@ -8,7 +10,9 @@ const PORT = env.PORT || 3000
 const HOST = env.HOST || '0.0.0.0'
 
 const app = new Application();
-
+app.use(oakCors({
+    origin: "*"
+  }))
 app.use(productRoute.routes())
 app.use(userRoute.routes())
 app.use(coreRoute.routes())
@@ -20,3 +24,7 @@ app.addEventListener("listen",({secure,hostname,port})=>{
     
 })
 await app.listen(`${HOST}:${PORT}`);
+
+export {
+    app
+}

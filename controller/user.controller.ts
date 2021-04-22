@@ -6,7 +6,7 @@ const findAll = async (
   { response, request, params }: { response: any; request: any; params: any },
 ) => {
   try {
-    const users = await findOne(await userModel.findAll());
+    const users = await userModel.findAll();
     response.status = Status.OK;
     response.body = {
       data: users,
@@ -97,4 +97,38 @@ const destroy = async({ response, request, params }: { response: any; request: a
   }
 }
 
-export { findAll,create,update,destroy };
+const mock = async({ response, request, params }: { response: any; request: any; params: any })=>{
+  try {
+    console.log("this is mock");
+    
+    const users = [
+      {
+        fname:"Thanachot",
+        lname:"Tesjaroen",
+        email:"armbanna55@mail.com",
+        password:"armbanna55"
+      },
+      {
+        fname:"Ammara",
+        lname:"Sungram",
+        email:"jewelry@mail.com",
+        password:"joyAmma55"
+      },
+    ]
+    response.status = Status.OK;
+    response.body = {
+      message: "OK",
+      data:users
+    };
+    return;
+  } catch (error) {
+    console.log(error.message);
+    response.status = Status.InternalServerError
+    response.body = {
+      message: "INTERNAL SERVER ERROR",
+    };
+    return;
+  }
+}
+
+export { findAll,create,update,destroy,mock };

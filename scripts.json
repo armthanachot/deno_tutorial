@@ -6,6 +6,11 @@
       "desc": "server",
       "allow": ["env","net"],
       "unstable": true
+    },
+    "test":{
+      "cmd":"deno test ./test/app.test.ts",
+      "allow": ["env","net","read"],
+      "unstable": true
     }
   }
 }
